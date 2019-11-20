@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :show, :edit ,:create, :update]
-  resources :pictures, only: [:new, :index, :show, :edit, :upgrate, :create, :destroy] do
+  resources :pictures, only: [:new, :index, :show, :edit, :update, :create, :destroy] do
     collection do
       patch :confirm
       post :confirm

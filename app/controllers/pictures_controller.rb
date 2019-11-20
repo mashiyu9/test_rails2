@@ -1,8 +1,10 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only: [:destroy]
+  before_action :set_picture, only: [:destroy, :edit, :show]
   def index
-    @picture = Picture.all
-    binding.pry
+    @picture = Picture.all.reverse
+  end
+
+  def show
   end
 
   def new
@@ -23,6 +25,15 @@ class PicturesController < ApplicationController
   end
 
   def update
+    @picture = Picture.find(params[:id])
+    @picture.user_id = current_user.id
+    if params[:back]
+      render :new and return
+    elsif @picture.update(params_picture)
+      redirect_to pictures_path, notice: "記事を更新しました"
+    else
+      render 'edit'
+    end
   end
 
   def confirm
