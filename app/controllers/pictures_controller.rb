@@ -2,6 +2,7 @@ class PicturesController < ApplicationController
   before_action :set_picture, only: [:destroy]
   def index
     @picture = Picture.all
+    binding.pry
   end
 
   def new
@@ -10,7 +11,7 @@ class PicturesController < ApplicationController
 
   def create
     @picture = Picture.new(params_picture)
-    # binding.pry
+    @picture.user_id = current_user.id
     if @picture.save
       redirect_to pictures_path, notice: "記事を作成しました"
     else
@@ -26,9 +27,9 @@ class PicturesController < ApplicationController
 
   def confirm
     @picture = Picture.new(params_picture)
-    # @picture.user_id = current_user.id
+    @picture.user_id = current_user.id
     @picture.id = params[:id]
-    # render :new if @picture.invalid?
+    render :new if @picture.invalid?
   end
 
   def destroy
@@ -39,7 +40,7 @@ class PicturesController < ApplicationController
   private
 
   def params_picture
-    params.require(:picture).permit(:title, :content, :image)
+    params.require(:picture).permit(:title, :content, :image, :image_cache)
   end
 
   def set_picture

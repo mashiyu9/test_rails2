@@ -12,12 +12,16 @@
   <% end %>
 
   <div class="picture_title">
-    <%= form.label :title %>
+    <%= form.label "タイトル" %>
     <%= form.text_field :title %>
   </div>
   <div class="picture_title">
-    <%= form.label :content %>
+    <%= form.label "記事" %>
     <%= form.text_field :content %>
+  </div>
+  <div class="picture_title">
+    <%= form.label "画像" %>
+    <%= form.file_field :image%>
   </div>
   <%= form.submit %>
 <% end %>
