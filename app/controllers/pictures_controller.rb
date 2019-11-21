@@ -1,14 +1,20 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:destroy, :edit, :show]
+  before_action :check, only: [:edit, :destroy, :update]
   def index
     @picture = Picture.all.reverse
   end
 
   def show
+    @favorite = current_user.favorites.find_by(picture_id: @picture)
   end
 
   def new
-    @picture = Picture.new
+    if logged_in?
+      @picture = Picture.new
+    else
+      redirect_to pictures_path, notice: "権限がありません"
+    end
   end
 
   def create
@@ -57,4 +63,11 @@ class PicturesController < ApplicationController
   def set_picture
     @picture = Picture.find(params[:id])
   end
+
+  def check
+    if current_user.id != @picture.user_id
+      redirect_to pictures_path, notice: "権限がありません"
+    end
+  end
+
 end
