@@ -21,6 +21,8 @@ class PicturesController < ApplicationController
     @picture = Picture.new(params_picture)
     @picture.user_id = current_user.id
     if @picture.save
+      binding.pry
+      ConfirmMailer.confirm_mail(@picture).deliver
       redirect_to pictures_path, notice: "記事を作成しました"
     else
       render 'new'
