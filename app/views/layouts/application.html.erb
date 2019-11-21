@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>InstagramClone</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>InstagramClone</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
+<body>
+
+<!--   <header class="header">
+    <div class="header-wrap container row">
+      <h1 class="col-xs-5">インスタグラム</h1>
+      <nav class="globl-nav">
+        <% if logged_in? %>
+        <%= link_to "マイページ", user_path(current_user.id) %>
+        <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+        <% else %>
+        <%= link_to "会員登録", new_user_path %>
+        <%= link_to "ログイン", new_session_path %>
+        <% end %>
+      </nav>
+    </div>
+  </header> -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gnavi">
+          <span class="sr-only">Bootstrap</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href= <%= pictures_path %>>インスタグラム</a>
+      </div>
+      <div id="gnavi" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <% if logged_in? %>
+          <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+          <li><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
+          <li><%= link_to "新しく記事を投稿する", new_picture_path %></li>
+          <li><%= link_to "お気に入り", favorites_path %></li>
+          <% else %>
+          <li><%= link_to "会員登録", new_user_path %></li>
+          <li><%= link_to "ログイン", new_session_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap container">
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
-
-    <% if logged_in? %>
-      <%= link_to "マイページ", user_path(current_user.id) %>
-      <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
-    <% else %>
-      <%= link_to "会員登録", new_user_path %>
-      <%= link_to "ログイン", new_session_path %>
+    <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
 
     <%= yield %>
-  </body>
-  </html>
+  </div>
+  <footer class="footer container-fluid">
+    こぴーらいといんすた
+  </footer>
+
+</body>
+</html>

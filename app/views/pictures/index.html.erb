@@ -1,33 +1,23 @@
 
-<h1>記事一覧</h1>
-
-<table>
-  <tr>
-    <th>タイトル</th>
-    <th>内容</th>
-    <th>画像</th>
-    <th>記者</th>
-  </tr>
-
+  <div class="pictures row">
   <% @picture.each do |picture| %>
-  <tr>
-
-    <td><%= picture.title %></td>
-    <td><%= picture.content %></td>
-    <% if picture.image.url.present? %>
-    <td><%= image_tag picture.image.url %></td> 
-    <td><%= picture.user.name %></td> 
-    <% end %>
-    <td><%= link_to "詳細を確認する", picture_path(picture.id) %></td>
-    <% if logged_in? %>
-      <% if current_user.id == picture.user.id %>
-        <td><%= link_to "ブログを編集する", edit_picture_path(picture.id), data: {confirm: "本当に編集していいですか?"} %></td>
-        <td><%= link_to "ブログを削除する", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"} %></td>
+    <div class="article col-md-4 col-sm-6 col-xs-12">
+      <p><%= picture.title %></p>
+      <% if picture.image.url.present? %>
+        <p><%= image_tag picture.image.url %></p> 
+        <p><%= picture.user.name %></p> 
       <% end %>
-    <% end %>
-  </tr>
+      <p><%= picture.content %></p>
+      <p><%= link_to "詳細を確認する", picture_path(picture.id) %></p>
+      <% if logged_in? %>
+        <% if current_user.id == picture.user.id %>
+          <p><%= link_to "記事を編集する", edit_picture_path(picture.id), data: {confirm: "本当に編集していいですか?"} %></p>
+          <p><%= link_to "記事を削除する", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"} %></p>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
-</table>
+  </div>
 
 <% if logged_in? %>
   <%= link_to "新しく記事を投稿する", new_picture_path %>

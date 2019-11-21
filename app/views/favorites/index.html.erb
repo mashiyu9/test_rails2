@@ -1,43 +1,26 @@
-<% @favorite.each do |favorite| %>
-  <%= favorite.picture.title %>
-  <%= favorite.picture.content%>
-  <%= favorite.picture.image%>
-
-<% end %>
 
 <h1>お気に入り</h1>
 
-<table>
-  <tr>
-    <th>タイトル</th>
-    <th>内容</th>
-    <th>画像</th>
-    <th>記者</th>
-  </tr>
 
   <% @favorite.each do |favorite| %>
-  <tr>
 
-    <td><%= favorite.picture.title %></td>
-    <td><%= favorite.picture.content %></td>
-    <td><%= favorite.picture.user.name %></td> 
+    <p><%= favorite.picture.title %></p>
+    <p><%= favorite.picture.content %></p>
+    <p><%= favorite.picture.user.name %></p> 
 
     <% if favorite.picture.image.url.present? %>
-    <td><%= image_tag favorite.picture.image.url %></td> 
+    <p><%= image_tag favorite.picture.image.url %></p> 
     <% end %>
-    <td><%= link_to "詳細を確認する", picture_path(favorite.picture.id), name: "favorite" %></td>
+    <p><%= link_to "詳細を確認する", picture_path(favorite.picture.id), name: "favorite" %></p>
     <% if logged_in? %>
       <% if current_user.id == favorite.picture.user.id %>
-        <td><%= link_to "ブログを編集する", edit_picture_path(favorite.picture.id), data: {confirm: "本当に編集していいですか?"} %></td>
-        <td><%= link_to "ブログを削除する", picture_path(favorite.picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"} %></td>
+        <p><%= link_to "ブログを編集する", edit_picture_path(favorite.picture.id), data: {confirm: "本当に編集していいですか?"} %></p>
+        <p><%= link_to "ブログを削除する", picture_path(favorite.picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"} %></p>
       <% end %>
     <% end %>
-  </tr>
   <% end %>
-</table>
 
 <% if logged_in? %>
-  <%= link_to "新しく記事を投稿する", new_picture_path %>
   <%= link_to "記事一覧に戻る", pictures_path %>
 
 <% end %>
