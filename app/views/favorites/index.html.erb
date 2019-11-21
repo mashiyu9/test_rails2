@@ -1,0 +1,26 @@
+
+<h1>お気に入り</h1>
+
+
+  <% @favorite.each do |favorite| %>
+
+    <p><%= favorite.picture.title %></p>
+    <p><%= favorite.picture.content %></p>
+    <p><%= favorite.picture.user.name %></p> 
+
+    <% if favorite.picture.image.url.present? %>
+    <p><%= image_tag favorite.picture.image.url %></p> 
+    <% end %>
+    <p><%= link_to "詳細を確認する", picture_path(favorite.picture.id), name: "favorite" %></p>
+    <% if logged_in? %>
+      <% if current_user.id == favorite.picture.user.id %>
+        <p><%= link_to "ブログを編集する", edit_picture_path(favorite.picture.id), data: {confirm: "本当に編集していいですか?"} %></p>
+        <p><%= link_to "ブログを削除する", picture_path(favorite.picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"} %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+<% if logged_in? %>
+  <%= link_to "記事一覧に戻る", pictures_path %>
+
+<% end %>

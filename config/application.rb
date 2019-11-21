@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module InstagramClone
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.i18n.default_locale = :ja
+    config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.available_locales = [:en, :ja]
     config.time_zone = "Tokyo"
