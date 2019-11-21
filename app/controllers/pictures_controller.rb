@@ -1,12 +1,14 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only: [:destroy, :edit, :show]
+  before_action :set_picture, only: [:destroy, :edit, :show, :update]
   before_action :check, only: [:edit, :destroy, :update]
   def index
     @picture = Picture.all.reverse
   end
 
   def show
-    @favorite = current_user.favorites.find_by(picture_id: @picture)
+    if current_user.present?
+      @favorite = current_user.favorites.find_by(picture_id: @picture)
+    end
   end
 
   def new
@@ -18,10 +20,12 @@ class PicturesController < ApplicationController
   end
 
   def create
+
     @picture = Picture.new(params_picture)
     @picture.user_id = current_user.id
-    if @picture.save
-      binding.pry
+    if params[:back].present?
+      render 'new'
+    elsif @picture.save
       ConfirmMailer.confirm_mail(@picture).deliver
       redirect_to pictures_path, notice: "記事を作成しました"
     else
@@ -33,7 +37,6 @@ class PicturesController < ApplicationController
   end
 
   def update
-    @picture = Picture.find(params[:id])
     @picture.user_id = current_user.id
     if params[:back]
       render :new and return
