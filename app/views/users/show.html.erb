@@ -6,8 +6,9 @@
 <p>プロフィール: <%= @user.profile %></p>
 <p>メールアドレス: <%= @user.email %></p>
 
-
-<% if current_user.id == @user.id %>
-<%= link_to 'プロフィールの編集', edit_user_path(@user) %> |
+<% if logged_in? %>
+  <% if current_user.id == @user.id %>
+    <%= link_to 'プロフィールの編集', edit_user_path(@user) %> |
+  <% end %>
 <% end %>
 <%= link_to '記事一覧に戻る', pictures_path %>
