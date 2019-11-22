@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :check, only: [:edit, :new, :create]
 
   def new
     @user = User.new
@@ -19,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    binding.pry
     @user = User.find(params[:id])
   end
 
@@ -35,6 +37,12 @@ class UsersController < ApplicationController
 
   def params_user
     params.require(:user).permit(:name, :email, :profile, :image, :password, :password_confirmation)
+  end
+  def check
+    @user = User.find(params[:id])
+    if current_user.id != @user
+      redirect_to pictures_path, notice: "権限がありません"
+    end
   end
 
 end

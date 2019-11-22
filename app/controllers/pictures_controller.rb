@@ -6,7 +6,7 @@ class PicturesController < ApplicationController
   end
 
   def show
-    if current_user.favorites.present?
+    if current_user.present?
       @favorite = current_user.favorites.find_by(picture_id: @picture)
     end
   end
