@@ -41,7 +41,6 @@ class UsersController < ApplicationController
 
   def check
     @user = User.find(params[:id])
-    binding.pry
     if current_user.id != @user.id
       redirect_to pictures_path, notice: "権限がありません"
     end
