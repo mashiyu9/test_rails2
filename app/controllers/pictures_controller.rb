@@ -20,6 +20,7 @@ class PicturesController < ApplicationController
   end
 
   def create
+    binding.pry
 
     @picture = Picture.new(params_picture)
     @picture.user_id = current_user.id
