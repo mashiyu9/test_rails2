@@ -8,7 +8,6 @@ class PicturesController < ApplicationController
   def show
     if current_user.favorites.present?
       @favorite = current_user.favorites.find_by(picture_id: @picture)
-      binding.pry
     end
   end
 
