@@ -26,7 +26,7 @@ class PicturesController < ApplicationController
     if params[:back].present?
       render 'new'
     elsif @picture.save
-      ConfirmMailer.confirm_mail(@picture).deliver
+      # ConfirmMailer.confirm_mail(@picture).deliver
       redirect_to pictures_path, notice: "記事を作成しました"
     else
       render 'new'
